@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <link rel="icon" href="">
+
+    <!-- Page Name and Site Name -->
+    <title>Aneal Bening Firebase Test</title>
+
+    <!-- CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <header class="header clearfix" style="background-color: #ffffff">
+
+        <!-- Main Menu -->
+        <nav>
+          <ul class="nav nav-pills pull-right">
+            <li class="active"><a href="#">Home</a></li>
+          </ul>
+        </nav>
+
+        <!-- Site Name -->
+        <h1 class="h3 text-muted">Aneal's Firebase Storage Application</h1>
+
+        <!-- Breadcrumbs -->
+        <ol class="breadcrumb">
+          <li class="active">Home</li>
+          <li><a href="#"></a></li>
+          <li><a href="#"></a></li>
+          
+        </ol>
+
+      </header>
+
+      <div class="page-heading">
+
+        <!-- Page Heading -->
+        <h1>Aneal Bening Storage Project</h1>
+
+      </div>
+
+      <div class="row">
+
+        <div class="col-sm-3">
+
+          <!-- Sub Navigation -->
+          <ul class="nav nav-pills nav-stacked">
+            <li class="active"><a href="#">Home</a>
+              <ul>
+              </ul>
+            </li>
+          </ul>
+
+        </div>
+
+        <div class="col-sm-6">
+
+          <div class="page-contents">
+
+            <!-- Design Body -->
+            <h2>Welcome to Aneal's Firebase Storage App</h2>
+            <p>This application allows you to upload files which are then stored in Firebase, a Google Cloud product.</p>
+
+
+            <progress value="0" max="100" id="uploader">0%</progress>
+            <input type="file" value="upload" id="fileButton"/>
+
+          </div>
+
+        </div>
+
+
+      </div>
+
+      <footer class="footer">
+        <p class="pull-right">
+          <!-- Last Updated Design Area-->
+          Last Updated: Tuesday, December 22, 2020
+        </p>
+        <p>&copy; 2020 Aneal Bening. Firebase is owned by Google - this website is not affiliated with Google in any way.</p>
+      </footer>
+
+    </div> <!-- /container -->
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+
+
+
+
+<script>
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  var config = {
+    apiKey: "AIzaSyAeCayXNP_MLp2Evf0NYkCsVaLIyObR5MY",
+    authDomain: "storagedemoaneal.firebaseapp.com",
+    databaseURL: "https://storagedemoaneal-default-rtdb.europe-west1.firebasedatabase.app/",
+    storageBucket: "storagedemoaneal.appspot.com",
+  };
+  // Initialize Firebase
+  firebase.initializeApp(config);
+  
+
+  // Get elements
+  var uploader = document.getElementById('uploader');
+  var fileButton = document.getElementById('fileButton');
+
+  // Listen for file selection
+  fileButton.addEventListener('change', function(e) {
+      // Get file
+      var file = e.target.files[0];
+
+      // Create a storage reference
+      var storageRef = firebase.storage().ref('/games/' + file.name);
+
+      // Upload file
+      var task = storageRef.put(file);
+
+      // Update progress bar
+      task.on('state_changed',
+
+      function progress(snapshot) {
+          var percentage = (snapshot.bytesTransferred /
+          snapshot.totalBytes) * 100;
+          uploader.value = percentage;
+      },
+
+      function error(err) {
+
+      },
+
+      function complete() {
+
+      }
+      );
+  })
+</script>
+
+  </body>
+</html>
